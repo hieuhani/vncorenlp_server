@@ -12,7 +12,11 @@ fun main(args: Array<String>) {
     val annotation = Annotation(str)
     pipeline.annotate(annotation)
 
-    val output = GsonBuilder().registerTypeAdapter(Annotation::class.javaObjectType, AnnotationSerializer()).create()
+    val output = GsonBuilder()
+            .registerTypeAdapter(Annotation::class.javaObjectType, AnnotationSerializer())
+            .registerTypeAdapter(Sentence::class.javaObjectType, SentenceSerializer())
+            .setPrettyPrinting()
+            .create()
 
     println(output.toJson(annotation))
 }
